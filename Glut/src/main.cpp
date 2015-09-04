@@ -142,7 +142,7 @@ void renderScene(void)
 
 		matrix3x3<float> translate(1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f);
 		matrix3x3<float> rotate(cos(angle), -sin(angle), 0, sin(angle), cos(angle), 0, 0, 0, 1);
-		matrix3x3<float> scale(1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+		matrix3x3<float> scale(1.25f, 0.0f, 0.0f, 0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f);
 
 		matrix3x3<float> matrix = translate * scale * rotate;
 
