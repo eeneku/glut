@@ -19,4 +19,8 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\freeglut.dll" />
+    <None Include="bin\x64\freeglut.dll" />
+  </ItemGroup>
 </Project>

@@ -13,6 +13,10 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\freeglut.dll" />
+    <None Include="bin\x64\freeglut.dll" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FC04A9E9-3EDC-4D0F-A5F0-D4085A2F5D00}</ProjectGuid>
     <RootNamespace>Glut</RootNamespace>
