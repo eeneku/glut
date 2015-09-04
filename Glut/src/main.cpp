@@ -3,14 +3,14 @@
 #include <ctime>
 #include <iostream>
 
+#define PI 3.14159265358979323846264338327950288419716939937510
+
 GLfloat angle = 0.0f;
-GLfloat speed = 5.0f;
+GLfloat speed = 5.0f * PI / 180.0f;
 
 GLfloat r = 1.0f;
 GLfloat g = 0.0f;
 GLfloat b = 0.0f;
-
-#define PI 3.14159265358979323846264338327950288419716939937510
 
 unsigned int points = 3;
 unsigned int rotationSpeed = 25;
@@ -139,7 +139,12 @@ void renderScene(void)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glLoadIdentity();
-		glRotatef(angle, 0, 0, 1);
+
+		matrix3x3<float> translate(1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f);
+		matrix3x3<float> rotate(cos(angle), -sin(angle), 0, sin(angle), cos(angle), 0, 0, 0, 1);
+		matrix3x3<float> scale(1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+
+		matrix3x3<float> matrix = translate * scale * rotate;
 
 		glBegin(GL_TRIANGLES);
 
@@ -147,14 +152,21 @@ void renderScene(void)
 
 		for (size_t i = 0; i < points; i++)
 		{
-			glColor3f(r, g, b);
-			glVertex3f(0.0f, 0.0f, 0.0f);
+			vector pos1(0.0f, 0.0f, 0.0f);
+			vector pos2(cos(i * temp), sin(i * temp), 0.0f);
+			vector pos3(cos((i + 1) * temp), sin((i + 1) * temp), 0.0f);
 
+			vector temp = matrix * pos1;
 			glColor3f(r, g, b);
-			glVertex3f(cos(i * temp), sin(i * temp), 0.0f);
+			glVertex3f(temp.data[0], temp.data[1], temp.data[2]);
 
+			temp = matrix * pos2;
 			glColor3f(r, g, b);
-			glVertex3f(cos((i + 1) * temp), sin((i + 1) * temp), 0.0f);
+			glVertex3f(temp.data[0], temp.data[1], temp.data[2]);
+
+			temp = matrix * pos3;
+			glColor3f(r, g, b);
+			glVertex3f(temp.data[0], temp.data[1], temp.data[2]);
 		}
 
 		glEnd();
